@@ -40,7 +40,6 @@ jobs:
             exit 1
           fi
       - name: Release
-        id: draft_release
         uses: actions/github-script@v7
         with:
           script: |
