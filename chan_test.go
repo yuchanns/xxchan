@@ -26,6 +26,50 @@ import (
 	"go.yuchanns.xyz/xxchan"
 )
 
+func TestChannelFull(t *testing.T) {
+	t.Parallel()
+
+	assert := require.New(t)
+
+	n := 10
+	length := n / 2
+
+	ptr := mem.Alloc(uint(xxchan.Sizeof[int](length)))
+	t.Cleanup(func() {
+		mem.Free(ptr)
+	})
+
+	ch := xxchan.Make[int](ptr, length)
+	assert.NotNil(ch)
+	assert.Equal(length, ch.Cap())
+	assert.Equal(0, ch.Len())
+
+	for i := range length {
+		assert.True(ch.Push(i))
+	}
+	assert.False(ch.Push(length))
+	assert.Equal(length, ch.Len())
+	for i := range length {
+		val, ok := ch.Pop()
+		assert.True(ok)
+		assert.Equal(i, val)
+	}
+	assert.Equal(0, ch.Len())
+	_, ok := ch.Pop()
+	assert.False(ok)
+
+	for i := range length {
+		assert.True(ch.Push(i+length))
+	}
+	assert.Equal(length, ch.Len())
+	for i := range length {
+		val, ok := ch.Pop()
+		assert.True(ok)
+		assert.Equal(i+length, val)
+	}
+	assert.Equal(0, ch.Len())
+}
+
 func TestChannelConcurrent(t *testing.T) {
 	t.Parallel()
 
