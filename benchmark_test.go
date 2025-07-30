@@ -20,7 +20,6 @@ package xxchan_test
 import (
 	"fmt"
 	"testing"
-	"unsafe"
 
 	"github.com/smasher164/mem"
 	"go.yuchanns.xyz/xxchan"
@@ -29,8 +28,8 @@ import (
 // Benchmark configurations
 var benchmarkSizes = []int{10, 100, 1000, 10000}
 
-// BenchmarkXXChanPush benchmarks xxchan Push operations
-func BenchmarkXXChanPush(b *testing.B) {
+// benchmarkXXChanPush benchmarks xxchan Push operations
+func benchmarkXXChanPush(b *testing.B) {
 	for _, size := range benchmarkSizes {
 		b.Run(fmt.Sprintf("cap-%d", size), func(b *testing.B) {
 			ptr := mem.Alloc(uint(xxchan.Sizeof[int](size)))
@@ -52,8 +51,8 @@ func BenchmarkXXChanPush(b *testing.B) {
 	}
 }
 
-// BenchmarkBuiltinChanPush benchmarks built-in channel send operations
-func BenchmarkBuiltinChanPush(b *testing.B) {
+// benchmarkBuiltinChanPush benchmarks built-in channel send operations
+func benchmarkBuiltinChanPush(b *testing.B) {
 	for _, size := range benchmarkSizes {
 		b.Run(fmt.Sprintf("cap-%d", size), func(b *testing.B) {
 			ch := make(chan int, size)
@@ -74,8 +73,8 @@ func BenchmarkBuiltinChanPush(b *testing.B) {
 	}
 }
 
-// BenchmarkXXChanPop benchmarks xxchan Pop operations
-func BenchmarkXXChanPop(b *testing.B) {
+// benchmarkXXChanPop benchmarks xxchan Pop operations
+func benchmarkXXChanPop(b *testing.B) {
 	for _, size := range benchmarkSizes {
 		b.Run(fmt.Sprintf("cap-%d", size), func(b *testing.B) {
 			ptr := mem.Alloc(uint(xxchan.Sizeof[int](size)))
@@ -105,8 +104,8 @@ func BenchmarkXXChanPop(b *testing.B) {
 	}
 }
 
-// BenchmarkBuiltinChanPop benchmarks built-in channel receive operations
-func BenchmarkBuiltinChanPop(b *testing.B) {
+// benchmarkBuiltinChanPop benchmarks built-in channel receive operations
+func benchmarkBuiltinChanPop(b *testing.B) {
 	for _, size := range benchmarkSizes {
 		b.Run(fmt.Sprintf("cap-%d", size), func(b *testing.B) {
 			ch := make(chan int, size)
@@ -134,8 +133,8 @@ func BenchmarkBuiltinChanPop(b *testing.B) {
 	}
 }
 
-// BenchmarkXXChanMixed benchmarks mixed Push/Pop operations for xxchan
-func BenchmarkXXChanMixed(b *testing.B) {
+// benchmarkXXChanMixed benchmarks mixed Push/Pop operations for xxchan
+func benchmarkXXChanMixed(b *testing.B) {
 	for _, size := range benchmarkSizes {
 		b.Run(fmt.Sprintf("cap-%d", size), func(b *testing.B) {
 			ptr := mem.Alloc(uint(xxchan.Sizeof[int](size)))
@@ -157,8 +156,8 @@ func BenchmarkXXChanMixed(b *testing.B) {
 	}
 }
 
-// BenchmarkBuiltinChanMixed benchmarks mixed send/receive operations for built-in channels
-func BenchmarkBuiltinChanMixed(b *testing.B) {
+// benchmarkBuiltinChanMixed benchmarks mixed send/receive operations for built-in channels
+func benchmarkBuiltinChanMixed(b *testing.B) {
 	for _, size := range benchmarkSizes {
 		b.Run(fmt.Sprintf("cap-%d", size), func(b *testing.B) {
 			ch := make(chan int, size)
@@ -184,7 +183,7 @@ func BenchmarkBuiltinChanMixed(b *testing.B) {
 }
 
 // BenchmarkChannelCreation benchmarks channel creation overhead
-func BenchmarkXXChanCreation(b *testing.B) {
+func benchmarkXXChanCreation(b *testing.B) {
 	for _, size := range benchmarkSizes {
 		b.Run(fmt.Sprintf("cap-%d", size), func(b *testing.B) {
 			b.ReportAllocs()
@@ -199,7 +198,7 @@ func BenchmarkXXChanCreation(b *testing.B) {
 	}
 }
 
-func BenchmarkBuiltinChanCreation(b *testing.B) {
+func benchmarkBuiltinChanCreation(b *testing.B) {
 	for _, size := range benchmarkSizes {
 		b.Run(fmt.Sprintf("cap-%d", size), func(b *testing.B) {
 			b.ReportAllocs()
@@ -213,7 +212,7 @@ func BenchmarkBuiltinChanCreation(b *testing.B) {
 }
 
 // BenchmarkConcurrentAccess benchmarks concurrent access patterns
-func BenchmarkXXChanConcurrent(b *testing.B) {
+func benchmarkXXChanConcurrent(b *testing.B) {
 	const size = 1000
 	const numWorkers = 4
 
@@ -238,7 +237,7 @@ func BenchmarkXXChanConcurrent(b *testing.B) {
 	})
 }
 
-func BenchmarkBuiltinChanConcurrent(b *testing.B) {
+func benchmarkBuiltinChanConcurrent(b *testing.B) {
 	const size = 1000
 	ch := make(chan int, size)
 
@@ -264,43 +263,22 @@ func BenchmarkBuiltinChanConcurrent(b *testing.B) {
 	})
 }
 
-// Memory usage comparison test
-func TestMemoryUsage(t *testing.T) {
-	sizes := []int{10, 100, 1000}
-
-	t.Log("Memory usage comparison:")
-	t.Log("Size\tXXChan\tBuiltin\tRatio")
-
-	for _, size := range sizes {
-		// Calculate xxchan memory usage
-		xxchanSize := xxchan.Sizeof[int](size)
-
-		// Estimate builtin channel memory usage (approximate)
-		// Built-in channels have additional overhead for goroutine scheduling,
-		// select operations, and runtime management
-		builtinSize := size*int(unsafe.Sizeof(int(0))) + 64 // rough estimate
-
-		ratio := float64(xxchanSize) / float64(builtinSize)
-		t.Logf("%d\t%d\t%d\t%.2f", size, xxchanSize, builtinSize, ratio)
-	}
-}
-
 // Benchmark helper to run all benchmarks
 func BenchmarkAll(b *testing.B) {
 	benchmarks := []struct {
 		name string
 		fn   func(*testing.B)
 	}{
-		{"XXChan/Push", BenchmarkXXChanPush},
-		{"Builtin/Push", BenchmarkBuiltinChanPush},
-		{"XXChan/Pop", BenchmarkXXChanPop},
-		{"Builtin/Pop", BenchmarkBuiltinChanPop},
-		{"XXChan/Mixed", BenchmarkXXChanMixed},
-		{"Builtin/Mixed", BenchmarkBuiltinChanMixed},
-		{"XXChan/Creation", BenchmarkXXChanCreation},
-		{"Builtin/Creation", BenchmarkBuiltinChanCreation},
-		{"XXChan/Concurrent", BenchmarkXXChanConcurrent},
-		{"Builtin/Concurrent", BenchmarkBuiltinChanConcurrent},
+		{"XXChan/Push", benchmarkXXChanPush},
+		{"Builtin/Push", benchmarkBuiltinChanPush},
+		{"XXChan/Pop", benchmarkXXChanPop},
+		{"Builtin/Pop", benchmarkBuiltinChanPop},
+		{"XXChan/Mixed", benchmarkXXChanMixed},
+		{"Builtin/Mixed", benchmarkBuiltinChanMixed},
+		{"XXChan/Creation", benchmarkXXChanCreation},
+		{"Builtin/Creation", benchmarkBuiltinChanCreation},
+		{"XXChan/Concurrent", benchmarkXXChanConcurrent},
+		{"Builtin/Concurrent", benchmarkBuiltinChanConcurrent},
 	}
 
 	for _, bm := range benchmarks {

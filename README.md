@@ -19,263 +19,263 @@ A garbage collection-free channel implementation for Go that operates on user-al
 <details>
 <summary>Benchmark</summary>
 
-```
-❯ go test -bench=BenchmarkAll -benchmem -count=6 -run=^$$ -v
-goos: linux
-goarch: amd64
+```bash
+❯ go test -bench=BenchmarkAll -benchmem -count=6 -run=^$ -v
+goos: darwin
+goarch: arm64
 pkg: go.yuchanns.xyz/xxchan
-cpu: Intel(R) Core(TM) i5-10500 CPU @ 3.10GHz
+cpu: Apple M1 Max
 BenchmarkAll
 BenchmarkAll/XXChan/Push
 BenchmarkAll/XXChan/Push/cap-10
-BenchmarkAll/XXChan/Push/cap-10-12      24244605                48.91 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-10-12      24467304                48.77 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-10-12      24032360                48.87 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-10-12      24407862                49.33 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-10-12      24648841                48.83 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-10-12      23947179                48.70 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10-10      41307733                29.36 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10-10      40870600                29.67 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10-10      40142505                29.69 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10-10      40990839                29.53 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10-10      40424229                29.75 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10-10      40561951                29.55 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Push/cap-100
-BenchmarkAll/XXChan/Push/cap-100-12     24078735                48.73 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-100-12     24275188                48.97 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-100-12     20957192                49.79 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-100-12     24328038                48.85 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-100-12     23849096                49.10 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-100-12     23639869                49.45 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-100-10     40971303                29.35 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-100-10     40208356                29.50 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-100-10     40453302                29.28 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-100-10     40130200                29.40 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-100-10     40281579                29.76 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-100-10     40613947                29.54 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Push/cap-1000
-BenchmarkAll/XXChan/Push/cap-1000-12            24371706                49.02 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-1000-12            23940170                48.86 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-1000-12            23994022                48.69 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-1000-12            24000056                48.83 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-1000-12            24436834                48.74 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-1000-12            23956015                49.05 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-1000-10            40477123                29.35 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-1000-10            40142562                29.37 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-1000-10            40425081                28.95 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-1000-10            40512709                29.67 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-1000-10            40719720                29.69 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-1000-10            40573266                29.36 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Push/cap-10000
-BenchmarkAll/XXChan/Push/cap-10000-12           24147483                49.00 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-10000-12           22864966                49.89 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-10000-12           23900118                49.41 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-10000-12           23872981                49.31 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-10000-12           24420098                49.43 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Push/cap-10000-12           24406305                49.05 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10000-10           40412656                29.73 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10000-10           40389590                29.72 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10000-10           40580698                29.68 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10000-10           40631422                29.73 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10000-10           40505359                29.27 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Push/cap-10000-10           40733024                29.70 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Push
 BenchmarkAll/Builtin/Push/cap-10
-BenchmarkAll/Builtin/Push/cap-10-12             26828751                42.74 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-10-12             27666813                42.56 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-10-12             26875081                44.23 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-10-12             27555166                43.01 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-10-12             27798236                43.52 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-10-12             27816698                43.05 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10-10             45300612                26.14 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10-10             46183968                25.96 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10-10             45603316                25.94 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10-10             46196043                26.17 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10-10             45608660                26.22 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10-10             45462868                26.13 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Push/cap-100
-BenchmarkAll/Builtin/Push/cap-100-12            27816471                43.03 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-100-12            27864440                43.94 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-100-12            27468655                43.06 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-100-12            28045586                42.60 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-100-12            26287956                42.64 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-100-12            27165517                43.18 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-100-10            46338979                25.54 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-100-10            46107738                25.49 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-100-10            46467051                25.51 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-100-10            46327574                25.65 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-100-10            46364565                25.28 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-100-10            46820283                25.12 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Push/cap-1000
-BenchmarkAll/Builtin/Push/cap-1000-12           28018944                42.64 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-1000-12           23487864                43.93 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-1000-12           27599203                42.74 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-1000-12           27331263                42.72 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-1000-12           26352759                43.95 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-1000-12           27321699                43.21 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-1000-10           46590706                25.63 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-1000-10           46371882                25.54 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-1000-10           46350090                25.26 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-1000-10           47157993                25.15 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-1000-10           47724074                25.12 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-1000-10           46177600                25.40 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Push/cap-10000
-BenchmarkAll/Builtin/Push/cap-10000-12          27027675                43.48 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-10000-12          26242766                45.10 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-10000-12          26849865                44.93 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-10000-12          24220219                45.81 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-10000-12          26229501                43.78 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Push/cap-10000-12          27839226                43.32 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10000-10          47401633                25.58 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10000-10          46626538                24.82 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10000-10          42185068                25.45 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10000-10          46926019                25.62 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10000-10          47030926                25.63 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Push/cap-10000-10          46865083                25.31 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Pop
 BenchmarkAll/XXChan/Pop/cap-10
-BenchmarkAll/XXChan/Pop/cap-10-12               32492216                36.29 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-10-12               32583741                36.76 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-10-12               31808386                37.26 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-10-12               31867864                37.30 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-10-12               31216932                36.74 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-10-12               31940875                36.20 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10-10               59240242                19.65 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10-10               61409475                19.50 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10-10               60945154                19.66 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10-10               59723652                19.99 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10-10               59253040                20.14 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10-10               60282195                20.00 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Pop/cap-100
-BenchmarkAll/XXChan/Pop/cap-100-12              31992528                36.57 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-100-12              32867726                36.37 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-100-12              31768370                36.19 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-100-12              30691387                36.47 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-100-12              32173386                36.44 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-100-12              31391517                36.45 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-100-10              59529345                19.95 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-100-10              59826874                19.82 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-100-10              60053798                19.94 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-100-10              59715975                19.62 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-100-10              59260233                19.84 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-100-10              59713622                19.76 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Pop/cap-1000
-BenchmarkAll/XXChan/Pop/cap-1000-12             32566542                36.14 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-1000-12             32496032                36.42 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-1000-12             28080708                36.20 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-1000-12             31085019                36.27 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-1000-12             31542200                36.18 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-1000-12             32152510                36.36 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-1000-10             59772368                19.49 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-1000-10             59857962                20.02 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-1000-10             59461993                19.76 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-1000-10             60522127                19.95 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-1000-10             60136434                20.05 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-1000-10             59377647                20.01 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Pop/cap-10000
-BenchmarkAll/XXChan/Pop/cap-10000-12            32247908                36.45 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-10000-12            32093013                36.29 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-10000-12            32082722                36.17 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-10000-12            31343571                36.63 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-10000-12            32074370                36.29 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Pop/cap-10000-12            32138822                36.18 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10000-10            59233298                20.01 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10000-10            60308325                19.87 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10000-10            59578605                19.93 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10000-10            59606101                20.04 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10000-10            61017078                19.95 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Pop/cap-10000-10            60250792                19.80 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Pop
 BenchmarkAll/Builtin/Pop/cap-10
-BenchmarkAll/Builtin/Pop/cap-10-12              26821446                43.91 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-10-12              26635228                44.19 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-10-12              27332872                43.71 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-10-12              26357892                44.01 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-10-12              26387878                43.98 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-10-12              26703819                43.91 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10-10              45709496                26.09 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10-10              45556068                26.17 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10-10              46061943                26.21 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10-10              45826959                26.08 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10-10              46122062                27.70 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10-10              45531435                26.16 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Pop/cap-100
-BenchmarkAll/Builtin/Pop/cap-100-12             22816039                45.18 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-100-12             26635842                44.60 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-100-12             26486952                43.65 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-100-12             26419364                43.56 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-100-12             26691240                44.05 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-100-12             25971820                43.79 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-100-10             47495438                25.25 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-100-10             46792442                25.47 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-100-10             47261072                24.88 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-100-10             47685434                25.43 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-100-10             46851894                25.41 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-100-10             47796226                25.27 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Pop/cap-1000
-BenchmarkAll/Builtin/Pop/cap-1000-12            26488880                43.79 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-1000-12            22729364                44.36 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-1000-12            26991532                43.46 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-1000-12            27107428                44.14 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-1000-12            24619338                44.01 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-1000-12            25809924                44.92 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-1000-10            47420286                24.96 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-1000-10            47418957                25.18 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-1000-10            47292892                25.06 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-1000-10            46853114                25.32 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-1000-10            47383305                25.39 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-1000-10            47450991                24.85 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Pop/cap-10000
-BenchmarkAll/Builtin/Pop/cap-10000-12           26436820                43.46 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-10000-12           26383824                43.81 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-10000-12           26081811                43.92 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-10000-12           26987203                44.39 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-10000-12           26216955                43.92 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Pop/cap-10000-12           26604466                43.39 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10000-10           47080670                24.72 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10000-10           47167414                25.22 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10000-10           46930530                24.66 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10000-10           47493088                25.07 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10000-10           47435203                24.90 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Pop/cap-10000-10           47217992                24.64 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Mixed
 BenchmarkAll/XXChan/Mixed/cap-10
-BenchmarkAll/XXChan/Mixed/cap-10-12             61012465                18.79 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-10-12             62543203                18.74 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-10-12             58055218                19.37 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-10-12             58952264                18.80 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-10-12             58547782                19.45 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-10-12             60478188                18.82 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10-10             100000000               10.29 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10-10             100000000               10.24 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10-10             100000000               10.36 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10-10             100000000               10.43 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10-10             100000000               10.16 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10-10             100000000               10.32 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Mixed/cap-100
-BenchmarkAll/XXChan/Mixed/cap-100-12            59162498                19.14 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-100-12            60983960                18.81 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-100-12            61070022                18.67 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-100-12            61365847                18.78 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-100-12            63467029                18.74 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-100-12            61855890                18.73 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-100-10            100000000               10.33 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-100-10            100000000               10.44 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-100-10            100000000               10.37 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-100-10            100000000               10.33 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-100-10            100000000               10.29 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-100-10            100000000               10.37 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Mixed/cap-1000
-BenchmarkAll/XXChan/Mixed/cap-1000-12           61808678                19.04 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-1000-12           61141629                18.72 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-1000-12           58656177                19.24 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-1000-12           61540680                18.73 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-1000-12           59384338                19.81 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-1000-12           62607648                19.15 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-1000-10           100000000               10.14 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-1000-10           100000000               10.25 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-1000-10           100000000               10.26 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-1000-10           100000000               10.40 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-1000-10           100000000               10.07 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-1000-10           100000000               10.29 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Mixed/cap-10000
-BenchmarkAll/XXChan/Mixed/cap-10000-12          50930523                19.85 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-10000-12          60723160                18.84 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-10000-12          61270882                18.78 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-10000-12          60489788                18.85 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-10000-12          62079710                19.22 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Mixed/cap-10000-12          61623612                18.87 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10000-10          100000000               10.43 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10000-10          100000000               10.42 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10000-10          100000000               10.32 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10000-10          100000000               10.16 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10000-10          100000000               10.37 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Mixed/cap-10000-10          100000000               10.41 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Mixed
 BenchmarkAll/Builtin/Mixed/cap-10
-BenchmarkAll/Builtin/Mixed/cap-10-12            54956883                21.52 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-10-12            55520859                21.47 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-10-12            52592210                21.48 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-10-12            51254076                21.52 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-10-12            53502679                21.37 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-10-12            52443194                21.49 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10-10            90709234                12.96 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10-10            90069804                13.07 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10-10            89351643                13.26 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10-10            89813636                13.24 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10-10            90658693                13.19 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10-10            91336948                13.21 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Mixed/cap-100
-BenchmarkAll/Builtin/Mixed/cap-100-12           54034988                21.57 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-100-12           53704011                21.81 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-100-12           55302504                21.64 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-100-12           53161225                21.44 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-100-12           53608077                21.47 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-100-12           53709132                21.93 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-100-10           93760071                12.79 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-100-10           92766170                12.85 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-100-10           93621693                12.74 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-100-10           92706150                12.69 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-100-10           93283886                12.75 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-100-10           92852910                12.83 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Mixed/cap-1000
-BenchmarkAll/Builtin/Mixed/cap-1000-12          53539777                22.12 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-1000-12          54736066                22.90 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-1000-12          53578413                22.30 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-1000-12          53141764                22.19 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-1000-12          53168060                22.69 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-1000-12          53134766                23.66 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-1000-10          93237375                12.79 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-1000-10          95101917                12.78 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-1000-10          93882638                12.83 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-1000-10          93752438                12.80 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-1000-10          93015439                12.82 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-1000-10          92301777                12.73 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Mixed/cap-10000
-BenchmarkAll/Builtin/Mixed/cap-10000-12         51518224                22.70 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-10000-12         52581847                22.65 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-10000-12         53237330                22.15 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-10000-12         54222026                22.27 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-10000-12         52900254                22.33 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Mixed/cap-10000-12         52643455                22.66 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10000-10         93597961                12.79 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10000-10         93086098                12.81 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10000-10         93692356                12.83 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10000-10         93168606                12.74 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10000-10         92438648                12.84 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Mixed/cap-10000-10         93101143                12.61 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Creation
 BenchmarkAll/XXChan/Creation/cap-10
-BenchmarkAll/XXChan/Creation/cap-10-12            347412              3442 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-10-12            333754              3492 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-10-12            340747              3645 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-10-12            290712              3665 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-10-12            326341              3630 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-10-12            338204              3631 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10-10            361184              3037 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10-10            351102              3004 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10-10            339495              2969 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10-10            354002              3054 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10-10            371895              3068 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10-10            350430              3009 ns/op               0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Creation/cap-100
-BenchmarkAll/XXChan/Creation/cap-100-12           285386              3517 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-100-12           316986              3547 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-100-12           304924              3963 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-100-12           325920              3507 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-100-12           343802              3484 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-100-12           347139              3593 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-100-10           431234              3039 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-100-10           380083              3008 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-100-10           385603              3038 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-100-10           408903              3024 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-100-10           383323              3122 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-100-10           370524              3158 ns/op               0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Creation/cap-1000
-BenchmarkAll/XXChan/Creation/cap-1000-12          252714              4427 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-1000-12          275679              4532 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-1000-12          265574              4489 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-1000-12          266692              4681 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-1000-12          259570              4662 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-1000-12          259284              4568 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-1000-10          417492              3161 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-1000-10          327760              3133 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-1000-10          420300              3172 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-1000-10          379503              3142 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-1000-10          413883              3148 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-1000-10          361140              3155 ns/op               0 B/op          0 allocs/op
 BenchmarkAll/XXChan/Creation/cap-10000
-BenchmarkAll/XXChan/Creation/cap-10000-12         214192              6041 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-10000-12         193544              5781 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-10000-12         208333              5803 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-10000-12         172652              5921 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-10000-12         209158              5936 ns/op               0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Creation/cap-10000-12         205629              5806 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10000-10         294318              4049 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10000-10         297874              4083 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10000-10         304057              4042 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10000-10         318649              4025 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10000-10         298657              4055 ns/op               0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Creation/cap-10000-10         283863              4028 ns/op               0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Creation
 BenchmarkAll/Builtin/Creation/cap-10
-BenchmarkAll/Builtin/Creation/cap-10-12         29157597                38.21 ns/op          192 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-10-12         30608451                38.13 ns/op          192 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-10-12         32404761                41.60 ns/op          192 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-10-12         31856515                36.40 ns/op          192 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-10-12         33811329                36.70 ns/op          192 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-10-12         31783866                42.92 ns/op          192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10-10         16586995                60.56 ns/op          192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10-10         22746699                52.49 ns/op          192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10-10         16674964                66.61 ns/op          192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10-10         16254196                62.38 ns/op          192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10-10         22525911                55.71 ns/op          192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10-10         23313691                53.27 ns/op          192 B/op          1 allocs/op
 BenchmarkAll/Builtin/Creation/cap-100
-BenchmarkAll/Builtin/Creation/cap-100-12         8784104               141.3 ns/op          1024 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-100-12         8162587               140.9 ns/op          1024 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-100-12         8676805               146.9 ns/op          1024 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-100-12         7113636               147.7 ns/op          1024 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-100-12         7898053               144.2 ns/op          1024 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-100-12         8593345               147.9 ns/op          1024 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-100-10         7151137               158.3 ns/op          1024 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-100-10         6831030               166.5 ns/op          1024 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-100-10         6899384               160.5 ns/op          1024 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-100-10         6960453               144.7 ns/op          1024 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-100-10         6531861               163.5 ns/op          1024 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-100-10         7064332               168.7 ns/op          1024 B/op          1 allocs/op
 BenchmarkAll/Builtin/Creation/cap-1000
-BenchmarkAll/Builtin/Creation/cap-1000-12        1000000              1063 ns/op            8192 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-1000-12        1000000              1034 ns/op            8192 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-1000-12        1000000              1018 ns/op            8192 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-1000-12        1000000              1044 ns/op            8192 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-1000-12        1000000              1070 ns/op            8192 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-1000-12         945720              1066 ns/op            8192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-1000-10        1342399               940.9 ns/op          8192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-1000-10        1406841               853.4 ns/op          8192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-1000-10        1366630               865.2 ns/op          8192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-1000-10        1433420               827.3 ns/op          8192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-1000-10        1000000              1005 ns/op            8192 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-1000-10        1531189               807.8 ns/op          8192 B/op          1 allocs/op
 BenchmarkAll/Builtin/Creation/cap-10000
-BenchmarkAll/Builtin/Creation/cap-10000-12        174210              6497 ns/op           81921 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-10000-12        180828              6478 ns/op           81921 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-10000-12        174102              6585 ns/op           81921 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-10000-12        166633              6595 ns/op           81921 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-10000-12        187765              6642 ns/op           81921 B/op          1 allocs/op
-BenchmarkAll/Builtin/Creation/cap-10000-12        173582              6632 ns/op           81921 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10000-10        250425              4777 ns/op           81921 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10000-10        240328              5211 ns/op           81921 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10000-10        214100              6214 ns/op           81921 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10000-10        248594              4868 ns/op           81920 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10000-10        221650              4831 ns/op           81920 B/op          1 allocs/op
+BenchmarkAll/Builtin/Creation/cap-10000-10        214250              4689 ns/op           81920 B/op          1 allocs/op
 BenchmarkAll/XXChan/Concurrent
-BenchmarkAll/XXChan/Concurrent-12               45012202                24.88 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Concurrent-12               47263854                24.62 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Concurrent-12               47051287                24.65 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Concurrent-12               43281940                25.12 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Concurrent-12               47791260                25.18 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/XXChan/Concurrent-12               43464128                25.68 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Concurrent-10               83892108                16.03 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Concurrent-10               78921309                14.16 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Concurrent-10               82054827                14.67 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Concurrent-10               83747055                15.65 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Concurrent-10               67477646                15.28 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/XXChan/Concurrent-10               78525037                14.58 ns/op            0 B/op          0 allocs/op
 BenchmarkAll/Builtin/Concurrent
-BenchmarkAll/Builtin/Concurrent-12              36834192                33.34 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Concurrent-12              36742482                32.13 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Concurrent-12              36376017                32.55 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Concurrent-12              35009757                32.66 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Concurrent-12              36773704                32.73 ns/op            0 B/op          0 allocs/op
-BenchmarkAll/Builtin/Concurrent-12              36169780                32.66 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Concurrent-10              67770608                19.29 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Concurrent-10              64118120                19.28 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Concurrent-10              67221396                19.25 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Concurrent-10              67406890                19.06 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Concurrent-10              66272403                19.00 ns/op            0 B/op          0 allocs/op
+BenchmarkAll/Builtin/Concurrent-10              67154780                18.52 ns/op            0 B/op          0 allocs/op
 PASS
-ok      go.yuchanns.xyz/xxchan  237.995s
-
+ok      go.yuchanns.xyz/xxchan  242.563s
 ```
+
 </details>
 
 ## Installation
