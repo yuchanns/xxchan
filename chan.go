@@ -33,7 +33,7 @@ import (
 // making it suitable for scenarios where garbage collector managed memory
 // cannot be used, such as in certain system-level or embedded applications.
 //
-// The channel uses a circular buffer internally and employs atomic operations
+// The channel uses a ring buffer internally and employs atomic operations
 // with spin-lock synchronization to ensure thread safety.
 //
 // Example usage:
@@ -128,7 +128,7 @@ func (c *Channel[T]) releaseLock() {
 	atomic.StoreInt32(&c.l, 0)
 }
 
-// buffer returns a slice view of the internal circular buffer.
+// buffer returns a slice view of the internal ring buffer.
 // The buffer is located immediately after the Channel struct in memory,
 // properly aligned for type T.
 func (c *Channel[T]) buffer() []T {
@@ -152,9 +152,6 @@ func (c *Channel[T]) buffer() []T {
 // Returns:
 //   - true if the value was successfully added
 //   - false if the channel is full
-//
-// Time Complexity: O(1)
-// Space Complexity: O(1)
 func (c *Channel[T]) Push(val T) (ok bool) {
 	if c == nil {
 		return
@@ -182,9 +179,6 @@ func (c *Channel[T]) Push(val T) (ok bool) {
 //
 // The function automatically resets internal head/tail pointers when the channel
 // becomes empty to prevent potential overflow in long-running applications.
-//
-// Time Complexity: O(1)
-// Space Complexity: O(1)
 func (c *Channel[T]) Pop() (v T, ok bool) {
 	if c == nil {
 		return
@@ -211,8 +205,6 @@ func (c *Channel[T]) Pop() (v T, ok bool) {
 //
 // Returns:
 //   - The number of elements currently in the channel (0 to Cap())
-//
-// Time Complexity: O(1)
 func (c *Channel[T]) Len() int {
 	if c == nil {
 		return 0
@@ -235,9 +227,6 @@ func (c *Channel[T]) Len() int {
 //
 // Returns:
 //   - The maximum capacity of the channel
-//
-// Time Complexity: O(1)
-// Note: This operation does not require locking as capacity is immutable.
 func (c *Channel[T]) Cap() int {
 	if c == nil {
 		return 0

@@ -1,5 +1,7 @@
 # xxchan
 
+[![Go Reference](https://pkg.go.dev/badge/go.yuchanns.xyz/xxchan)](https://pkg.go.dev/go.yuchanns.xyz/xxchan)
+
 A garbage collection-free channel implementation for Go that operates on user-allocated memory.
 
 ## Overview
@@ -12,7 +14,7 @@ A garbage collection-free channel implementation for Go that operates on user-al
 - **Thread-safe**: Supports concurrent access from multiple goroutines
 - **Generic**: Works with any Go type using generics
 - **Simple API**: Provides basic channel operations (Push, Pop, Len, Cap)
-- **Circular buffer**: Efficient memory usage with O(1) operations
+- **Ring buffer**: Efficient memory usage with O(1) operations
 
 <details>
 <summary>Benchmark</summary>
@@ -374,30 +376,6 @@ func processData() {
     }
 }
 ```
-
-## API Reference
-
-### Functions
-
-#### `Sizeof[T any](n int) int`
-Returns the memory size required for a `Channel[T]` with capacity `n`.
-
-#### `Make[T any](ptr unsafe.Pointer, n int) *Channel[T]`
-Creates a new channel using the provided memory block with capacity `n`.
-
-### Methods
-
-#### `Push(val T) bool`
-Adds a value to the channel. Returns `true` if successful, `false` if the channel is full.
-
-#### `Pop() (T, bool)`
-Removes and returns a value from the channel. Returns the zero value and `false` if the channel is empty.
-
-#### `Len() int`
-Returns the current number of elements in the channel.
-
-#### `Cap() int`
-Returns the maximum capacity of the channel.
 
 ## Memory Management
 
