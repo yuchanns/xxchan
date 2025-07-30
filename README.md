@@ -1,6 +1,9 @@
 # xxchan
 
+![ci](https://github.com/yuchanns/xxchan/actions/workflows/ci.yaml/badge.svg?branch=main)
 [![Go Reference](https://pkg.go.dev/badge/go.yuchanns.xyz/xxchan)](https://pkg.go.dev/go.yuchanns.xyz/xxchan)
+[![](https://badge.fury.io/go/go.yuchanns.xyz%2Fxxchan.svg)](https://pkg.go.dev/go.yuchanns.xyz/xxchan)
+[![License](https://img.shields.io/github/license/yuchanns/xxchan)](https://github.com/yuchanns/xxchan/blob/main/LICENSE)
 
 A garbage collection-free channel implementation for Go that operates on user-allocated memory.
 
