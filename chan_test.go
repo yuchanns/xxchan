@@ -59,7 +59,7 @@ func TestChannelFull(t *testing.T) {
 	assert.False(ok)
 
 	for i := range length {
-		assert.True(ch.Push(i+length))
+		assert.True(ch.Push(i + length))
 	}
 	assert.Equal(length, ch.Len())
 	for i := range length {
@@ -514,6 +514,75 @@ func TestChannelComplex128(t *testing.T) {
 	val, ok = ch.Pop()
 	assert.True(ok)
 	assert.Equal(complex128(3+4i), val)
+	_, ok = ch.Pop()
+	assert.False(ok)
+}
+
+func TestChannelStruct(t *testing.T) {
+	t.Parallel()
+	assert := require.New(t)
+
+	type MyStruct struct {
+		A int
+		B string
+	}
+
+	n := 2
+	ptr := mem.Alloc(uint(xxchan.Sizeof[MyStruct](n)))
+	t.Cleanup(func() { mem.Free(ptr) })
+
+	ch := xxchan.Make[MyStruct](ptr, n)
+	assert.NotNil(ch)
+	assert.Equal(n, ch.Cap())
+	assert.Equal(0, ch.Len())
+
+	s1 := MyStruct{A: 1, B: "one"}
+	s2 := MyStruct{A: 2, B: "two"}
+
+	assert.True(ch.Push(s1))
+	assert.True(ch.Push(s2))
+	assert.False(ch.Push(MyStruct{}))
+
+	val, ok := ch.Pop()
+	assert.True(ok)
+	assert.Equal(s1, val)
+
+	val, ok = ch.Pop()
+	assert.True(ok)
+	assert.Equal(s2, val)
+
+	_, ok = ch.Pop()
+	assert.False(ok)
+}
+
+func TestChannelPointer(t *testing.T) {
+	t.Parallel()
+	assert := require.New(t)
+
+	n := 2
+	ptr := mem.Alloc(uint(xxchan.Sizeof[*int](n)))
+	t.Cleanup(func() { mem.Free(ptr) })
+
+	ch := xxchan.Make[*int](ptr, n)
+	assert.NotNil(ch)
+	assert.Equal(n, ch.Cap())
+	assert.Equal(0, ch.Len())
+
+	i1 := 1
+	i2 := 2
+
+	assert.True(ch.Push(&i1))
+	assert.True(ch.Push(&i2))
+	assert.False(ch.Push(nil))
+
+	val, ok := ch.Pop()
+	assert.True(ok)
+	assert.Equal(&i1, val)
+
+	val, ok = ch.Pop()
+	assert.True(ok)
+	assert.Equal(&i2, val)
+
 	_, ok = ch.Pop()
 	assert.False(ok)
 }
